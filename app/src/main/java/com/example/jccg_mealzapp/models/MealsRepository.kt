@@ -7,25 +7,12 @@ import retrofit2.Response
 import javax.security.auth.callback.Callback
 
 class MealsRepository(private val webservice: MealsWebService = MealsWebService()) {
-    fun getMeals(successCallback: (response : MealsCategoriesResponses?) -> Unit){
-        return webservice.getMeals().enqueue(object : retrofit2.Callback<MealsCategoriesResponses> {
-            override fun onResponse(
-                call: Call<MealsCategoriesResponses>,
-                response: Response<MealsCategoriesResponses>,
-            ) {
-                if(response.isSuccessful)
-                    successCallback(response.body())
-            }
+    suspend fun getMeals(): MealsCategoriesResponses{
+        return webservice.getMeals()
 
-            override fun onFailure(call: Call<MealsCategoriesResponses>, t: Throwable) {
-                //TODO treat failure
-            }
-
-
-        })
     }
 
-    //todo : retrofit
+
 }
 
 
